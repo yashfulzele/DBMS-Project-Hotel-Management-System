@@ -40,7 +40,7 @@
         <div class="container">
             <form action="booking.php" method="post">
                 <div class="row">
-                    <h2>Registration page</h2>
+                    <h2>Booking page</h2>
 
                     <div class="col-25">
                         <label for="check_in">Check-in</label>
