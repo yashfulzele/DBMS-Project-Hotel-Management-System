@@ -49,7 +49,10 @@ input[type=submit] {
 .container {
     border-radius: 5px;
     background-color: #a1b3e2;
-    padding: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-right: 300px;
+    padding-left: 300px;
 }
 
 .col-25 {
