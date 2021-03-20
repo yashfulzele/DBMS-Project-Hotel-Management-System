@@ -10,8 +10,6 @@
         $total_rooms = $_POST["total_rooms"];
         $exists = false;
         $date_chk = false;
-        $check_in = strtotime($check_in);
-        $check_out = strtotime($check_out);
         if ($check_out > $check_in){
             $date_chk = true;
         }
@@ -46,14 +44,14 @@
                         <label for="check_in">Check-in</label>
                     </div>
                     <div class="col-75">
-                        <input type="text" id="check_in" name="check_in" placeholder="mm-dd-yyyy" required>
+                        <input type="text" id="check_in" name="check_in" placeholder="yyyy-mm-dd" required>
                     </div>
 
                     <div class="col-25">
                         <label for="check_out">Check-out</label>
                     </div>
                     <div class="col-75">
-                        <input type="text" id="check_out" name="check_out" placeholder="mm-dd-yyyy" required>
+                        <input type="text" id="check_out" name="check_out" placeholder="yyyy-mm-dd" required>
                     </div>
 
                     <div class="col-25">
@@ -85,6 +83,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script type="text/javascript">
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
     var showAlert = '<?php echo $showAlert; ?>';
     var showError = '<?php echo $showError; ?>';
     if (showAlert == 1){
