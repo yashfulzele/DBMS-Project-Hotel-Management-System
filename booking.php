@@ -9,6 +9,16 @@
         $total_amount = $_POST["total_amount"];
         $total_rooms = $_POST["total_rooms"];
         $exists = false;
+
+        $query1 = "SELECT check_in, check_out, payment_type, total_amount, total_rooms FROM `bookings`";
+        $res = mysqli_query($conn, $query1);
+        while($row = mysqli_fetch_array($res)){
+            if ($row['check_in'] == $check_in && $row['check_out'] == $check_out && $row['payment_type'] == $payment_type && $row['total_amount'] == $total_amount && $row['total_rooms'] == $total_rooms) {
+                $exists = true;
+                break;
+            }
+        }
+
         $date_chk = false;
         if ($check_out > $check_in){
             $date_chk = true;
