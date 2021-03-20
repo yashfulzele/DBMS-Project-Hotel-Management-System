@@ -85,30 +85,29 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script type="text/javascript">
-    $(function(){
-        if (showAlert){
-            $('#book').click(function(){
-                Swal.fire({
-                    position: 'centre',
-                    icon: 'success',
-                    title: 'Booking is successful!',
-                    showConfirmButton: false,
-                    timer: 1500
-                })
-            });
-        }
-        if (showError){
-            $('#book').click(function(){
-                Swal.fire({
-                    position: 'centre',
-                    icon: 'error',
-                    title: 'Correct the form!',
-                    showConfirmButton: false,
-                    timer: 1500
-                })
-            });
-        }
-    });
+    var showAlert = '<?php echo $showAlert; ?>';
+    var showError = '<?php echo $showError; ?>';
+    if (showAlert == 1){
+        $(function(){
+            Swal.fire({
+                position: 'centre',
+                icon: 'success',
+                title: 'Booking is successful!',
+                showConfirmButton: false,
+                timer: 1500
+            })
+        });
+    }else if (showError == 1){
+        $(function(){
+            Swal.fire({
+                position: 'centre',
+                icon: 'error',
+                title: 'Correct the form!',
+                showConfirmButton: false,
+                timer: 1500
+            })
+        });
+    }
 </script>
 </body>
 </html>
