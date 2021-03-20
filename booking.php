@@ -15,8 +15,8 @@
         if ($check_out > $check_in){
             $date_chk = true;
         }
-        if (exists == false && $date_chk == true){
-            $sql = "INSERT INTO `Bookings` (`check_in`, `check_out`, `payment_type`, `total_amount`, `total_rooms`) VALUES ('check_in', 'check_out', 'payment_type', 'total_amount', 'total_rooms');";
+        if ($exists == false && $date_chk == true){
+            $sql = "INSERT INTO `Bookings` (`check_in`, `check_out`, `payment_type`, `total_amount`, `total_rooms`) VALUES ('$check_in', '$check_out', '$payment_type', '$total_amount', '$total_rooms');";
             $result = mysqli_query($conn, $sql);
             if ($result){
                 $showAlert = true;
