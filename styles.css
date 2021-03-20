@@ -45,18 +45,13 @@ input[type=submit] {
     display: inline;
     border-radius: 4px;
     cursor: pointer;
-    float: center;
     margin-top: 20px;
-    margin-left: 50%;
 }
 
 .container {
     border-radius: 5px;
     background-color: #a1b3e2;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    padding-right: 300px;
-    padding-left: 300px;
+    padding: 20px 325px 20px 325px;
 }
 
 .col-25 {

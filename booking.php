@@ -1,5 +1,5 @@
 <?php
-    if ($_SERVER["REQUEST_METHOD"] == "POST"){
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $showAlert = false;
         $showError = false;
         include 'config.php';
@@ -10,26 +10,22 @@
         $total_rooms = $_POST["total_rooms"];
         $exists = false;
 
-        $query1 = "SELECT check_in, check_out, payment_type, total_amount, total_rooms FROM `bookings`";
+        $query1 = "SELECT check_in, check_out, payment_type, total_amount, total_rooms FROM `bookings` WHERE check_in = '$check_in' AND check_out = '$check_out' AND payment_type = '$payment_type' AND total_amount = '$total_amount' AND total_rooms = '$total_rooms'";
         $res = mysqli_query($conn, $query1);
-        while($row = mysqli_fetch_array($res)){
-            if ($row['check_in'] == $check_in && $row['check_out'] == $check_out && $row['payment_type'] == $payment_type && $row['total_amount'] == $total_amount && $row['total_rooms'] == $total_rooms) {
+        if (mysqli_num_rows($res) > 0) {
                 $exists = true;
-                break;
-            }
         }
-
         $date_chk = false;
-        if ($check_out > $check_in){
+        if ($check_out > $check_in) {
             $date_chk = true;
         }
-        if ($exists == false && $date_chk == true){
+        if ($exists == false && $date_chk == true) {
             $sql = "INSERT INTO `Bookings` (`check_in`, `check_out`, `payment_type`, `total_amount`, `total_rooms`) VALUES ('$check_in', '$check_out', '$payment_type', '$total_amount', '$total_rooms');";
             $result = mysqli_query($conn, $sql);
-            if ($result){
+            if ($result) {
                 $showAlert = true;
             }
-        }else{
+        } else {
             $showError = true;
         }
     }
@@ -48,7 +44,7 @@
         <div class="container">
             <form action="booking.php" method="post">
                 <div class="row">
-                    <h2>Booking page</h2>
+                    <h2 style="text-align:center;">Booking page</h2>
 
                     <div class="col-25">
                         <label for="check_in">Check-in</label>
@@ -72,7 +68,7 @@
                     </div>
 
                     <div class="col-25">
-                        <label for="total_amount">Total amount payable</label>
+                        <label for="total_amount">Total amount</label>
                     </div>
                     <div class="col-75">
                         <input type="text" id="total_amount" name="total_amount" placeholder="Total amount (without commas)">
@@ -85,7 +81,9 @@
                         <input type="text" id="total_rooms" name="total_rooms" placeholder="Total no. of rooms eg. 1, 2, 3..." required>
                     </div>
 
-                    <input type="submit" name="create" value="Book" id="book">
+                    <div class="submit" style="text-align: center;">
+                        <input type="submit" name="create" value="Book" id="book">
+                    </div>
                 </div>
             </form>
         </div>
@@ -93,12 +91,12 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script type="text/javascript">
-    if ( window.history.replaceState ) {
+    if (window.history.replaceState) {
         window.history.replaceState( null, null, window.location.href );
     }
     var showAlert = '<?php echo $showAlert; ?>';
     var showError = '<?php echo $showError; ?>';
-    if (showAlert == 1){
+    if (showAlert == 1) {
         $(function(){
             Swal.fire({
                 position: 'centre',
@@ -108,7 +106,7 @@
                 timer: 1500
             })
         });
-    }else if (showError == 1){
+    } else if (showError == 1) {
         $(function(){
             Swal.fire({
                 position: 'centre',
