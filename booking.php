@@ -1,16 +1,16 @@
 <?php
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $showAlert = false;
-        $showError = false;
         include 'config.php';
-        $check_in = $_POST["check_in"];
-        $check_out = $_POST["check_out"];
-        $payment_type = $_POST["payment_type"];
-        $total_amount = $_POST["total_amount"];
-        $total_rooms = $_POST["total_rooms"];
-        $exists = false;
+        $showAlert      = false;
+        $showError      = false;
+        $check_in       = $_POST["check_in"];
+        $check_out      = $_POST["check_out"];
+        $payment_type   = $_POST["payment_type"];
+        $total_amount   = $_POST["total_amount"];
+        $total_rooms    = $_POST["total_rooms"];
+        $exists         = false;
 
-        $query1 = "SELECT check_in, check_out, payment_type, total_amount, total_rooms FROM `bookings` WHERE check_in = '$check_in' AND check_out = '$check_out' AND payment_type = '$payment_type' AND total_amount = '$total_amount' AND total_rooms = '$total_rooms'";
+        $query1 = "SELECT check_in, check_out, payment_type, total_amount, total_rooms FROM `bookings` WHERE check_in = '$check_in' AND check_out = '$check_out' AND payment_type = '$payment_type' AND total_amount = '$total_amount' AND total_rooms = '$total_rooms';";
         $res = mysqli_query($conn, $query1);
         if (mysqli_num_rows($res) > 0) {
                 $exists = true;

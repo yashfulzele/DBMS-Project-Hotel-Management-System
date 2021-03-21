@@ -1,13 +1,13 @@
 <?php
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         include 'config.php';
-        $g_or_e = $_POST["g_or_e"];
+        $g_or_e   = $_POST["g_or_e"];
         $username = $_POST["username"];
         $password = $_POST["password"];
         $login = false;
         if (!empty($g_or_e)) {
             if ($g_or_e == "Guest") {
-                $query = "SELECT username, password FROM `Guests` WHERE username = '$username' AND password = '$password'";
+                $query = "SELECT username, password FROM `Guests` WHERE username = '$username' AND password = '$password';";
                 $res = mysqli_query($conn, $query);
                 if (mysqli_num_rows($res) == 1) {
                     $login = true;
@@ -17,7 +17,7 @@
                     header("location: main.php");
                 }
             } else if ($g_or_e == "Employee") {
-                $query = "SELECT username, password FROM `Employee` WHERE username = '$username' AND password = '$password'";
+                $query = "SELECT username, password FROM `Employee` WHERE username = '$username' AND password = '$password';";
                 $res = mysqli_query($conn, $query);
                 if (mysqli_num_rows($res) == 1) {
                     $login = true;
