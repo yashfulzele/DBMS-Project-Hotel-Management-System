@@ -6,7 +6,7 @@
         $password = $_POST["password"];
         $login = false;
         if (!empty($g_or_e)) {
-            if ($g_or_e == "Guest") {
+            if ($g_or_e == "guest") {
                 $query = "SELECT username, password FROM `Guests` WHERE username = '$username' AND password = '$password';";
                 $res = mysqli_query($conn, $query);
                 if (mysqli_num_rows($res) == 1) {
@@ -16,7 +16,7 @@
                     $_SESSION['username'] = $username;
                     header("location: main.php");
                 }
-            } else if ($g_or_e == "Employee") {
+            } else if ($g_or_e == "employee") {
                 $query = "SELECT username, password FROM `Employee` WHERE username = '$username' AND password = '$password';";
                 $res = mysqli_query($conn, $query);
                 if (mysqli_num_rows($res) == 1) {
@@ -41,7 +41,7 @@
 </head>
 <body style="background-color:rgb(0, 0, 0);">
     <div class="form">
-        <div class="container" style="padding: 20px 450px 20px 450px;">
+        <div class="container" style="padding: 120px 450px 170px 450px;">
             <form action="login.php" method="post">
                 <div class="row">
                     <h2 style="text-align:center;">Login page</h2>

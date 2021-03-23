@@ -1,7 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Pangolin&display=swap');
-*{
-    box-sizing: border-box;
-}
 
 input[type=text], select, textarea{
     width: 100%;

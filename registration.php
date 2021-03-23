@@ -3,6 +3,9 @@
         include 'config.php';
         $showError      = false;
         $error          = "Some error occurred!";
+        $g_id           = 0;
+        $emp_id         = 0;
+        $address_id     = 0;
         $g_or_e         = $_POST["g_or_e"];
         $name           = $_POST['name'];
         $contact_no1    = $_POST['contact_no1'];
@@ -18,7 +21,7 @@
         $country        = $address_arr[2];
         $zipcode        = $address_arr[3];
         if (!empty($g_or_e)) {
-            if ($g_or_e == "Guest") {
+            if ($g_or_e == "guest") {
                 $query  = "SELECT username FROM `Guests` WHERE username = '$username';";
                 $res    = mysqli_query($conn, $query);
                 if (mysqli_num_rows($res) == 0) {
@@ -28,28 +31,33 @@
                         $first_name = array_shift($name_arr);
                         $last_name  = join(" ", $name_arr);
                         $sql1       = "INSERT INTO `Guests` (`first_name`, `last_name`, `username`, `password`) VALUES ('$first_name', '$last_name', '$username', '$password');";
+                        $sql1       .= "SELECT LAST_INSERT_ID();";
                         $sql1       .= "INSERT INTO `Address` (`city`, `state`, `country`, `zipcode`) VALUES ('$city', '$state', '$country', '$zipcode');";
+                        $sql1       .= "SELECT LAST_INSERT_ID();";
                         $result1    = mysqli_multi_query($conn, $sql1);
-                        if ($result1) {
-                            $query1  = "SELECT g_id FROM Guests WHERE username = '$username';";
-                            $query2  = "SELECT address_id FROM Address ORDER BY address_id DESC, LIMIT 1;";
-                            $result2 = mysqli_query($conn, $query1);
-                            $result3 = mysqli_query($conn, $query2);
-                            if ($result2 && $result3) {
-                                $row1       = mysqli_fetch_array($result2, MYSQLI_BOTH);
-                                $row2       = mysqli_fetch_array($result3, MYSQLI_BOTH);
-                                $g_id       = $row1[0];
-                                $address_id = $row2[0];
-                                $sql2       = "INSERT INTO `Guest_contact` (`g_id`, `contact_no`) VALUES ('$g_id', '$contact_no1');";
-                                $sql2       .= "INSERT INTO `Guest_contact` (`g_id`, `contact_no`) VALUES ('$g_id', '$contact_no2');";
-                                $sql2       .= "INSERT INTO `Guest_email` (`g_id`, `email_id`) VALUES ('$g_id', '$email1');";
-                                $sql2       .= "INSERT INTO `Guest_email` (`g_id`, `email_id`) VALUES ('$g_id', '$email2');";
-                                $sql2       .= "INSERT INTO `Guest_address` (`g_id`, `address_id`) VALUES ('$g_id', '$address_id');";
-                                $result2    = mysqli_multi_query($conn, $sql2);
+                        $i          = 0;
+                        do {
+                            if ($result_1 = mysqli_store_result($conn)) {
+                                while ($row = mysqli_fetch_row($result_1)) {
+                                    if ($i == 0){
+                                        $g_id       = $row[0];
+                                    }
+                                    if ($i == 1) {
+                                        $address_id = $row[0];
+                                    }
+                                    $i++;
+                                }
                             }
+                        } while (mysqli_more_results($conn) && mysqli_next_result($conn));
+                        $sql2       = "INSERT INTO `Guests_contact` (`g_id`, `contact_no`) VALUES ('$g_id', '$contact_no1'), ('$g_id', '$contact_no2');";
+                        $sql2       .= "INSERT INTO `Guests_email` (`g_id`, `email_id`) VALUES ('$g_id', '$email1'), ('$g_id', '$email2');";
+                        $sql2       .= "INSERT INTO `Guest_address` (`g_id`, `address_id`) VALUES ('$g_id', '$address_id');";
+                        $result2    = mysqli_multi_query($conn, $sql2);
+                        if (result2){
+                            header("location: index.php");
                         } else {
-                            $showError  = true;
-                            $error      = "Some error occurred during inserting!";
+                            $showError = true;
+                            $error = ("Error description: " . mysqli_error($conn));
                         }
                     } else {
                         $showError  = true;
@@ -59,7 +67,7 @@
                     $showError = true;
                     $error = "Change your username!";
                 }
-            } else if ($g_or_e == "Employee") {
+            } else if ($g_or_e == "employee") {
                 $query = "SELECT username FROM `Employee` WHERE username = '$username'";
                 $res = mysqli_query($conn, $query);
                 if (mysqli_num_rows($res) == 0) {
@@ -69,28 +77,33 @@
                         $first_name = array_shift($name_arr);
                         $last_name  = join(" ", $name_arr);
                         $sql1       = "INSERT INTO `Employee` (`first_name`, `last_name`, `username`, `password`) VALUES ('$first_name', '$last_name', '$username', '$password');";
+                        $sql1       .= "SELECT LAST_INSERT_ID();";
                         $sql1       .= "INSERT INTO `Address` (`city`, `state`, `country`, `zipcode`) VALUES ('$city', '$state', '$country', '$zipcode');";
+                        $sql1       .= "SELECT LAST_INSERT_ID();";
                         $result1    = mysqli_multi_query($conn, $sql1);
-                        if ($result1) {
-                            $query1  = "SELECT emp_id FROM Employee WHERE username = '$username';";
-                            $query2  = "SELECT address_id FROM Address ORDER BY address_id DESC, LIMIT 1;";
-                            $result2 = mysqli_query($conn, $query1);
-                            $result3 = mysqli_query($conn, $query2);
-                            if ($result2 && $result3) {
-                                $row1       = mysqli_fetch_array($result2, MYSQLI_BOTH);
-                                $row2       = mysqli_fetch_array($result3, MYSQLI_BOTH);
-                                $emp_id     = $row1[0];
-                                $address_id = $row2[0];
-                                $sql2       = "INSERT INTO `Emp_contact` (`emp_id`, `contact_no`) VALUES ('$emp_id', '$contact_no1');";
-                                $sql2       .= "INSERT INTO `Emp_contact` (`emp_id`, `contact_no`) VALUES ('$gemp_id', '$contact_no2');";
-                                $sql2       .= "INSERT INTO `Emp_email` (`emp_id`, `email_id`) VALUES ('$emp_id', '$email1');";
-                                $sql2       .= "INSERT INTO `Emp_email` (`emp_id`, `email_id`) VALUES ('$emp_id', '$email2');";
-                                $sql2       .= "INSERT INTO `Emp_address` (`emp_id`, `address_id`) VALUES ('$emp_id', '$address_id');";
-                                $result2    = mysqli_multi_query($conn, $sql2);
+                        $i          = 0;
+                        do {
+                            if ($result_1 = mysqli_store_result($conn)) {
+                                while ($row = mysqli_fetch_row($result_1)) {
+                                    if ($i == 0){
+                                        $emp_id     = $row[0];
+                                    }
+                                    if ($i == 1) {
+                                        $address_id = $row[0];
+                                    }
+                                    $i++;
+                                }
                             }
+                        } while (mysqli_more_results($conn) && mysqli_next_result($conn));
+                        $sql2       = "INSERT INTO `Emp_contact` (`emp_id`, `contact_no`) VALUES ('$emp_id', '$contact_no1'), ('$emp_id', '$contact_no2');";
+                        $sql2       .= "INSERT INTO `Emp_email` (`emp_id`, `email_id`) VALUES ('$emp_id', '$email1'), ('$emp_id', '$email2');";
+                        $sql2       .= "INSERT INTO `Emp_address` (`emp_id`, `address_id`) VALUES ('$emp_id', '$address_id');";
+                        $result2    = mysqli_multi_query($conn, $sql2);
+                        if (result2){
+                            header("location: index.php");
                         } else {
-                            $showError  = true;
-                            $error      = "Some error occurred during inserting!";
+                            $showError = true;
+                            $error = ("Error description: " . mysqli_error($conn));
                         }
                     } else {
                         $showError = true;
@@ -101,6 +114,9 @@
                     $error = "Change your username!";
                 }
             }
+        } else {
+            $showError = true;
+            $error = "Choose the user type!";
         }
     }
 ?>
@@ -115,7 +131,7 @@
 </head>
 <body style="background-color:rgb(0, 0, 0);">
     <div class="form">
-        <div class="container">
+        <div class="container" style="padding: 10px 325px 20px 325px;">
             <form action="registration.php" method="post">
                 <div class="row">
                     <h2 style="text-align:center;">Registration page</h2>
@@ -201,7 +217,7 @@
         window.history.replaceState( null, null, window.location.href );
     }
     var showError = '<?php echo $showError; ?>';
-    var error = "<?php echo json_encode($error); ?>";
+    var error = '<?php echo json_encode($error); ?>';
     if (showError == 1) {
         $(function(){
             Swal.fire({
