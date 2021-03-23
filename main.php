@@ -14,6 +14,6 @@
     <title>Main</title>
 </head>
 <body>
-    <h2>WELCOME</h2>
+    <h2>WELCOME <?php echo $_SESSION['username']; ?></h2>
 </body>
 </html>
