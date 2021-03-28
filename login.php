@@ -13,8 +13,9 @@
                     $login = true;
                     session_start();
                     $_SESSION['loggedin'] = true;
+                    $_SESSION['user']     = "guest";
                     $_SESSION['username'] = $username;
-                    header("location: main.php");
+                    header("location: main_guest.php");
                 }
             } else if ($g_or_e == "employee") {
                 $query = "SELECT username, password FROM `Employee` WHERE username = '$username' AND password = '$password';";
@@ -23,8 +24,9 @@
                     $login = true;
                     session_start();
                     $_SESSION['loggedin'] = true;
+                    $_SESSION['user']     = "employee";
                     $_SESSION['username'] = $username;
-                    header("location: main.php");
+                    header("location: main_employee.php");
                 }
             }
         }

@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Pangolin&display=swap');
+
+.profile {
+    height: 325px;
+    border-radius: 5px;
+    border-style: solid;
+    padding: 0px 305px 0px 350px;
+}
+
+.container {
+    border-radius: 5px;
+    background-color: #a1b3e2;
+    padding: 20px 20px 20px 20px;
+    font-family: 'Pangolin', cursive;
+}
+
+.col-25 {
+    float: left;
+    width: 25%;
+    margin-top: 0px;
+}
+
+.col-75 {
+    float: left;
+    width: 75%;
+    margin-top: 0px;
+}
+
+.buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: right;
+    margin-left: 600px;
+}
+
+.update {
+    margin-right: 20px;
+    padding: 5px 35px 5px 35px;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #57af4c;
+    font-family: 'Pangolin', cursive;
+}
+
+.booking {
+    margin-right: 20px;
+    padding: 5px 35px 5px 35px;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #57af4c;
+    font-family: 'Pangolin', cursive;
+}
+
+.logout {
+    padding: 5px 35px 5px 35px;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #57af4c;
+    font-family: 'Pangolin', cursive;
+}
+
+.serv_book {
+    margin-top: 20px;
+    padding: 5px 35px 5px 35px;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #57af4c;
+    font-family: 'Pangolin', cursive;
+}
+
+.foot {
+    display: flex;
+    width: 100%;
+}
