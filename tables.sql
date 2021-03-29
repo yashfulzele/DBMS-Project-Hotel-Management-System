@@ -1,5 +1,5 @@
 create table if not exists Guests(
-    g_id int not null,
+    g_id int not null AUTO_INCREMENT,
     first_name varchar(255) not null,
     last_name varchar(255) not null,
     username varchar(45) not null unique,
@@ -8,7 +8,7 @@ create table if not exists Guests(
 );
 
 create table if not exists Employee(
-    emp_id int not null,
+    emp_id int not null AUTO_INCREMENT,
     first_name varchar(255) not null,
     last_name varchar(255) not null,
     username varchar(45) not null unique,

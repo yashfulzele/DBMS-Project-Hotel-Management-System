@@ -24,6 +24,7 @@
         $state          = $address_arr[1];
         $country        = $address_arr[2];
         $zipcode        = $address_arr[3];
+        
         if (!empty($g_or_e)) {
             if ($g_or_e == "guest") {
                 $query  = "SELECT username FROM `Guests` WHERE username = '$username';";
@@ -75,6 +76,7 @@
                         $error      = "Last name missing!";
                     }
                 } else {
+                    echo mysqli_error($conn)."<br>";
                     $showError = true;
                     $error = "Change your username!";
                 }
